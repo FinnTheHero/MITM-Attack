@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login</title>
+        <style>
+            body {
+                text-align: center;
+                font-family: Arial, sans-serif;
+            }
+
+            .fields input {
+                font-size: large;
+                border: none;
+                border-bottom: 1px solid black;
+                border-radius: 5%;
+                margin-left: 1rem;
+                outline: none;
+                box-shadow: none; !important
+            }
+
+            #userDiv {
+                font-size: larger;
+                text-align: center;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #passwordDiv {
+                font-size: larger;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form id="loginForm" action="/submit-login" method="POST">
+            <div class="fields" id="userDiv">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div class="fields" id="passwordDiv">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="responseMessage"></p>
+
+        <script>
+            document
+                .getElementById("loginForm")
+                .addEventListener("submit", async function (e) {
+                    e.preventDefault(); // Prevent the default form submission behavior
+
+                    // Create a new FormData object to gather the form data
+                    const formData = new FormData(
+                        document.getElementById("loginForm"),
+                    );
+
+                    // Send the request using fetch with POST method
+                    const response = await fetch("/submit-login", {
+                        method: "POST", // Use POST request
+                        body: formData, // Send form data
+                    });
+
+                    const result = await response.json(); // Parse the JSON response
+
+                    // Display the response
+                    document.getElementById("responseMessage").innerText =
+                        result.message + " for user " + result.user;
+                });
+        </script>
+    </body>
+</html>
