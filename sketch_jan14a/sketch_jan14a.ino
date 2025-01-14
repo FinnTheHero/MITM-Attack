@@ -9,7 +9,7 @@ const char* AP_SSID = "FakeAP";
 const char* AP_PASSWORD = "fakepassword";
 
 // Target server configuration
-const char* TARGET_SERVER = "192.168.0.115";  // Your laptop's IP
+const char* TARGET_SERVER = "";               // Your laptop's IP
 const int TARGET_PORT = 8080;                 // Your server's port
 
 WebServer webServer(80);
